@@ -1,3 +1,15 @@
- <router-outlet></router-outlet> 
+ <!-- <router-outlet></router-outlet>  -->
+ <!-- <div class="spinner" *ngIf="loadingornot"></div> -->
+
+ <div *ngIf="users">
+    <div *ngFor="let user of users">
+        <ng-container *ngIf="user.gender==='m'; else femaleUser">
+               male User : {{user.name}}
+        </ng-container>
+        <ng-template #femaleUser>
+            female user : {{user.name}}
+        </ng-template>
+    </div>
+ </div>
 
 <!-- <app-hero-list></app-hero-list> -->

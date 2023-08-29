@@ -20,7 +20,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {enableTracing:true})
   ],
   providers: [],
   bootstrap: [AppComponent]
