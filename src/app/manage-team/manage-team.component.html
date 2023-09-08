@@ -1,41 +1,70 @@
-<!-- <div class="container-fluid"> -->
-
 <div class="container mt-2">
 
+  <div class="header row">
 
-    <div class="header row" >
+    <div class="col-6">
+      <h3>Employees Details</h3>
+    </div>
 
-        <div class="col-6">
-        <h3>Employees Details</h3>
-       </div>
+    <div class="col-6 d-flex">
+      <input type="text" class="input" placeholder="Search Here" [(ngModel)]="searchingName">
+      <button type="button" class="btn btn-primary ms-3" (click)="openModal(content)">+ new Employee</button>
+    </div>
 
-       <div class="col-6 d-flex">
-        <input type="text" class="input" placeholder="Search Here">
-        <button class="btn btn-primary ms-3" >+ new Employee</button>
-      </div>
+  </div>
+
+  <table class="table mt-5 table-lg">
+
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let user of (users | search: searchingName) as filteredUser ">
+        <td>{{ user.id }}</td>
+        <td>{{ user.name}} </td>
+        <td>{{ user.password }}</td>
+        <td>{{ user.roles }}</td>
+        <td><button class="action" style="background-color:#50B89D;color: #FFFFFF;"
+            (click)="openModal(content)">Edit</button></td>
+        <td><button class="action" style="background-color: #F87171;color: #FFFFFF;"
+            (click)="deletemaps(user.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h1 class="modal-title fs-5">Emp Details :)</h1>
+      <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+
+      <label for="name">User ID : </label> <br>
+      <input type="number" [(ngModel)]="newUser.id" name="name" class="modalInput rounded w-75"> <br>
+
+      <label for="name">Name : </label> <br>
+      <input type="text" [(ngModel)]="newUser.name" name="name" class="modalInput rounded w-75"> <br>
+
+      <label for="name">Password : </label> <br>
+      <input type="password" [(ngModel)]="newUser.password" name="name" class="modalInput rounded w-75"> <br>
+
+      <label for="name">Role : </label> <br>
+      <input type="text" [(ngModel)]="newUser.roles" name="name" class="modalInput rounded w-75">
 
     </div>
 
-      <table class="table mt-5 table-lg">
-        <thead>
-            <tr>
-                <th>User ID</th>
-                <th>Name</th>
-                <th>Password</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let user of users">
-                <td>{{ user.id }}</td>
-                <td>{{ user.name}} </td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.roles }}</td>
-                <td><button class="action" style="background-color:#50B89D;color: #FFFFFF;">Edit</button></td>
-                <td><button class="action" style="background-color: #F87171;color: #FFFFFF;" (click)="deletemaps(user.id)">Delete</button></td>
-            </tr>
-        </tbody>
-      </table>    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="addUser(newUser)">Save changes</button>
+    </div>
+
+  </ng-template>
 
 </div>

@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './forget-password.component.html',
   styleUrls: ['./forget-password.component.css']
 })
-export class ForgetPasswordComponent {
-
-}
+export class ForgetPasswordComponent {}
