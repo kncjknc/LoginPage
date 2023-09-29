@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-between mt-4">
+
+
+<div class="col-6 d-flex">
+  Filter 
+  <form class="col-3" style="margin-left: 10px;">
+    <label for="">Date</label>
+    <ng-select   [items]="months" bindLabel="month" bindValue="id"
+      (change)="selectedmonth.id = $event.id" [clearable]="false"></ng-select>
+   
+       <label for="">Year</label>
+    <ng-select [items]="years" bindLabel="year" bindValue="year"
+      (change)="selectedyear.year = $event.year" [clearable]="false"></ng-select>
+
+  </form>
+
+  <div  style="margin-left: 10px; margin-top: 20px;" (click)="filterMonthYear()" ><button class="btn btn-primary ">Apply</button></div>
+
+</div>
+
+  <div class="d-flex col-3">
+    <input type="text" class="inputBox p-2"  placeholder="Search" [(ngModel)]="searchText">
+    <img src="../../../assets/images/copy.svg" alt="copy" class="imge">
+    <img src="../../../assets/images/csv.png" alt="" class="imge">
+    <img src="../../../assets/images/print.svg" alt="print" class="imge">
+  </div>
+
+</div>
+
+
+<div class="col-12 mt-4">
+
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th scope="col">S.no</th>
+        <th scope="col"> Date</th>
+        <th scope="col">Status</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let leave of monlyLeaveReport.data.results | searchfilter:searchText ; let i=index" [ngStyle]="{'margin-bottom': '20px'}"
+        class="p-3">
+        <th scope="row" class="p-3">{{i+1}}</th>
+        <td>{{leave.holidays_date | date: 'dd MMM yyyy'}} {{leave.date | date : 'dd MMM yyyy'}} </td>
+        <td>{{leave.leaveName=='Emergency leave'?'Emergency leave':(leave.leaveName==''?'Absent':'')}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

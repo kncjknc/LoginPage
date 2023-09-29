@@ -26,7 +26,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let user of (users | search: searchingName) as filteredUser ">
+      <tr *ngFor="let user of users  ">
         <td>{{ user.id }}</td>
         <td>{{ user.name}} </td>
         <td>{{ user.password }}</td>

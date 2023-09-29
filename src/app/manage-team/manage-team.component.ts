@@ -17,7 +17,7 @@ export class ManageTeamComponent implements OnInit {
   editingUserId: any = {};
   newUser: any = {};
   searchingName: string = '';
-  filteredUser:Users[]=[];
+ // filteredUser:Users[]=[];
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
 

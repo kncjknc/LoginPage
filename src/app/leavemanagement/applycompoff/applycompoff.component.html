@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between bordered accordians mt-3" (click)="accordionItems.toggle()">
+
+    <div>
+      <cdk-accordion class="example-accordion ">
+        <cdk-accordion-item #accordionItems="cdkAccordionItem">
+
+          <div class="example-accordion-item-header" >
+            {{ accordionItems.expanded ? '' : '' }} Note
+         </div>
+
+          <div class="example-accordion-item-body" [style.display]="accordionItems.expanded ? '' : 'none'">
+            The leave balance shown takes your future approved leaves into account as well.
+            Each Employee is eligible to have 5 leaves per quarter - 3 Earned leaves and 2 Sick/Emergency leaves.
+            1 Earned leave will be added on 1st of every month and 2 Emergency/Sick leaves will be added on 1st of
+            January, April, July, October as per the policy.
+            Apart from 11 National and Festival holidays, every doodleblue employee is entitled to avail one optional
+            holiday out of the total 5 holidays mentioned in the holiday list. </div>
+        </cdk-accordion-item>
+      </cdk-accordion> 
+    </div>
+
+    <div>
+      <img src="../../assets/images/CaretDown.svg" alt="Caret">
+    </div>
+
+  </div>
+
+  
+  <div class="col-12 mt-5" >
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S.NO</th>
+          <th scope="col">Comp Off Date	</th>
+          <th scope="col">Project</th>
+          <th scope="col">Applied Hours	</th>
+          <th scope="col">Approved Hours	</th>
+          <th scope="col">Status</th>
+          <th scope="col">Action</th>
+          <th scope="col">Expiry Date</th>
+        </tr>
+      </thead>
+
+    </table>
+
+  </div>
+

@@ -1,0 +1,163 @@
+<div class="main">
+  <div class="d-flex justify-content-end container">
+    <img src=".././../assets/images/bellsimple.svg" alt="bellsimple">
+    <img src=".././../assets/images/empicon.svg" alt="empIcon">
+  </div>
+
+  <div class="container mainDiv p-4">
+
+    <div class="mt-3">
+
+      <div class="d-flex justify-content-between container ">
+        <h4>Leave Management</h4>
+        <button type="submit" class="btn btn-primary" (click)="open(content)" *ngIf="activeTabIndex === 0">Apply
+          Leave</button>
+        <button type="submit" class="btn btn-primary" *ngIf="activeTabIndex === 1" (click)="open2(content2)">Apply Comp
+          Leave</button>
+      </div>
+
+      <mat-tab-group animationDuration="0ms" class="mt-3" [selectedIndex]="activeTabIndex"
+        (selectedIndexChange)="activeTabIndex = $event">
+        <mat-tab label="Apply Leave"><app-applyleave></app-applyleave></mat-tab>
+        <mat-tab label="Apply Comp Off"><app-applycompoff></app-applycompoff></mat-tab>
+        <mat-tab label="Monthly Leave Report"><app-monthlyleavereport></app-monthlyleavereport></mat-tab>
+        <mat-tab label="Holidays Calendar"><app-holidaycalendar></app-holidaycalendar></mat-tab>
+      </mat-tab-group>
+
+
+      <div style="float: right;">
+        <img src="../../assets/images/Frame 52.svg" alt="frame" style="height: 1%;">
+      </div>
+    </div>
+
+     <!-- Apply Leave Modal -->
+
+    <ng-template #content let-modal>
+
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Apply Leave</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+
+          <label for="">LeaveType</label>
+          <ng-select [items]="leaveType" bindLabel="type" bindValue="id" (change)="leaveId.id = $event.id"></ng-select>
+
+          <label for="">Period</label>
+          <ng-select [items]="period" bindLabel="day" bindValue="day" 
+            (change)="leavePeriod.day = $event.day"></ng-select>
+
+          <label for="date">From Date</label>
+          <input type="date" class="DateBox" [(ngModel)]="toDate">
+
+          <label for="date">To Date</label>
+          <input type="date" class="DateBox" [(ngModel)]="fromDate">
+
+          <label for="" class="mt-3 col-4 ">Reason</label>
+          <input type="text" class="Reason" placeholder="Reasons"  [(ngModel)]="comments"><br>
+
+          <label for="proj">Current Project</label>
+
+          <ng-select [items]="projects" bindLabel="project" bindValue="project" 
+            (change)="projectName.namee=$event.project"></ng-select>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="leaveFormDetail()">Save</button>
+      </div>
+    </ng-template>
+
+      <!-- Apply Comp Off Leave Modal -->
+
+    <ng-template #content2 let-modal [ngStyle]="{'display':displayStyle}">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Apply Comp Off</h4>
+
+      </div>
+      <div class="modal-body">
+
+        <form>
+
+          <label for="date">Task Date</label>
+          <input type="date" class="DateBox" [(ngModel)]="toDate">
+
+          <label for="">Hours</label>
+          <ng-select [items]="hours" bindLabel="hour" bindValue="hour"
+            (change)="taskHours.taskHour = $event.hour"></ng-select>
+
+          <label for="">Project Name</label>
+          <ng-select [items]="projects" bindLabel="project" bindValue="project" 
+            (change)="projectName.namee=$event.project"></ng-select>
+
+          <label for="" class="mt-3 col-4 ">Completed Task</label>
+          <input type="text" class="Reason" placeholder="Reasons" [(ngModel)]="comments"><br>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)=" modal.dismiss('Cross click');compOffDetails();">Save</button>
+      </div>
+    </ng-template>
+
+
+    <!-- 
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayStyle}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2>Add Leave</h2>
+          </div>
+          <div class="modal-body">
+            <div class="p-4">
+
+              <div style="height: 50%;width: 100%;">
+               
+                <form>
+
+                  <label for="">LeaveType</label>
+                  <ng-select [items]="leaveType" bindLabel="type" bindValue="id"
+                    (change)="leaveId.id = $event.id"></ng-select>
+
+                  <label for="">Period</label>
+                  <ng-select [items]="period" bindLabel="day" bindValue="day" formControlName=""
+                    (change)="leavePeriod.day = $event.day"></ng-select>
+
+                  <label for="date">From Date</label>
+                  <input type="date" class="DateBox" [(ngModel)]="toDate">
+
+                  <label for="date">To Date</label>
+                  <input type="date" class="DateBox" [(ngModel)]="fromDate">
+
+                  <label for="" class="mt-3 col-4 ">Reason</label>
+                  <input type="text" class="Reason" placeholder="Reasons" [(ngModel)]="comments"><br>
+
+                  <label for="proj">Current Project</label>
+
+                  <ng-select [items]="projects" bindLabel="project" bindValue="project" formControlName=""
+                    (change)="projectName.namee=$event.project"></ng-select>
+
+                </form>
+              </div>
+
+              
+            </div>
+            <div class="modal-footer d-flex">
+              <button type="button" class="btn btn-danger" (click)="closePopup()">
+                Close
+              </button>
+
+              <button type="button" class="btn btn-primary" (click)="leaveFormDetail()">Save</button>
+            </div>
+          </div>
+        </div>
+      </div> 
+      
+  -->

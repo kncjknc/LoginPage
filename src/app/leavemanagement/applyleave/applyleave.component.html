@@ -1,0 +1,142 @@
+
+<div class="d-flex mt-5 justify-content-around">
+
+<div class="p-2 col-2 boxes"  *ngFor="let top of topLeave.data.results">
+
+    <h1 class="text-primary">{{top.leaveCount}}</h1> <br>{{top.leaveType}} 
+    
+</div>
+
+</div>
+
+
+
+<!-- <div class="mt-3">
+      <ng-select [items]="note" bindLabel="name"  bindValue="city">
+      </ng-select>
+  </div> -->
+
+<div class="d-flex justify-content-between  accordians mt-3" (click)="accordionItems.toggle()">
+
+  <div >
+    <cdk-accordion class="example-accordion ">
+      <cdk-accordion-item #accordionItems="cdkAccordionItem">
+        <div class="example-accordion-item-header" >
+          {{ accordionItem.expanded ? '' : '' }} Note
+        </div>
+        <div class="example-accordion-item-body" [style.display]="accordionItems.expanded ? '' : 'none'">
+          The leave balance shown takes your future approved leaves into account as well.
+          Each Employee is eligible to have 5 leaves per quarter - 3 Earned leaves and 2 Sick/Emergency leaves.
+          1 Earned leave will be added on 1st of every month and 2 Emergency/Sick leaves will be added on 1st of
+          January, April, July, October as per the policy.
+          Apart from 11 National and Festival holidays, every doodleblue employee is entitled to avail one optional
+          holiday out of the total 5 holidays mentioned in the holiday list. </div>
+      </cdk-accordion-item>
+    </cdk-accordion>
+  </div>
+
+  <div>
+    <img src="../../assets/images/CaretDown.svg" alt="Caret">
+  </div>
+
+</div>
+
+<div class="d-flex justify-content-between  accordians mt-5" (click)="accordionItem.toggle()">
+
+  <div>
+    <cdk-accordion class="example-accordion">
+      <cdk-accordion-item #accordionItem="cdkAccordionItem">
+        <div class="example-accordion-item-header" >
+          {{ accordionItem.expanded ? '' : '' }} Optional Holidays
+        </div>
+        <div class="example-accordion-item-body" [style.display]="accordionItem.expanded ? '' : 'none'">
+          Optional holiday can be applied only for those specific dates mentioned in the holiday list as "Optional".
+          Applying Optional holiday for other dates is not allowed as per the policy. </div>
+      </cdk-accordion-item>
+    </cdk-accordion>
+  </div>
+
+  <div>
+    <img src="../../assets/images/CaretDown.svg" alt="Caret">
+  </div>
+</div>
+
+
+<div class="d-flex justify-content-between mt-5">
+  <p>Leave History</p>
+  <div><input type="text" placeholder=" Search" class="inputBox" [(ngModel)]="searchText"></div>
+</div>
+
+
+
+<div class="col-12">
+
+  <table class="table">
+
+    <thead>
+      <tr>
+        <th scope="col">S.no</th>
+        <th scope="col">Leave Date</th>
+        <th scope="col">Type</th>
+        <th scope="col">Status</th>
+        <th scope="col">Aproved By</th>
+        <th scope="col">Not Approved</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let leave of Leaves.data.results | searchfilter:searchText ; let i=index">
+        <th scope="row" class="p-3">{{i+1}}</th>
+        <td>{{leave.from_date | date: 'dd MMM yyyy'}}-{{leave.to_date | date:'dd MMM yyyy'}}</td>
+        <td>{{leave.leave_type_name}}</td>
+        <td>
+          <div *ngIf="leave.status == 0" class="pending">Pending</div>
+          <div *ngIf="leave.status == 5" class="Auto-Approved">Auto-Approved</div>
+          <div *ngIf="leave.status == 2" class="Withdraw">Withdraw</div>
+        </td>
+        <td>{{leave.Approval}}</td>
+        <td>{{leave.NotApproval}}</td>
+        <td><button (click)="openModal(content2,leave,leave.id)" class="customButton">view</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Leave Details</h4>
+
+  </div>
+  <div class="modal-body">
+
+
+    <div class="d-flex">
+    <label class="col-4 mt-2">Leave Type</label>
+    <td class="bordered col-8 mt-2">{{selectedLeave.leave_type == 1 ? 'Emergency Leave':(selectedLeave.leave_type==2 ? 'EarnedLeave':'CommonLeave')}}</td>
+    </div>
+
+    <div class="d-flex">
+      <label class="col-4 mt-2">Period</label>
+      <td class="bordered col-8 mt-2">{{selectedLeave.leavePeriod | titlecase }}</td>
+    </div>
+
+    <div class="d-flex">
+      <label class="col-4 mt-2">Date</label>
+      <td class="bordered col-8 mt-2">{{selectedLeave.from_date | date: 'dd MMM yyyy'}}-{{selectedLeave.to_date | date:'dd MMM yyyy'}}</td>
+    </div> 
+
+    <div class="d-flex">
+      <label class="col-4 mt-2">Reason</label>
+      <td class="bordered col-8 mt-2">{{selectedLeave.comments}}</td>
+    </div>
+
+  </div>
+</ng-template>
+
+
